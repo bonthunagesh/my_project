@@ -1,0 +1,27 @@
+name: My First CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Runs when you push to 'main'
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest  # A free computer GitHub provides
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Grabs your code
+
+      - name: Set up Python
+        uses: actions/setup-python@v4  # Installs Python
+        with:
+          python-version: '3.11'  # Uses Python 3.11
+
+      - name: Run Tests
+        run: python -m unittest test_math_utils.py  # Runs your tests
+
+
+      - name: Deploy
+        if: success()  # Only if tests pass
+        run: echo "Deploying now... Done!"  # Pretend deployment
